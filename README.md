@@ -1,5 +1,7 @@
 # gpu-cluster-bringup
 
+> **Moved.** This project now lives in [inference-qa-lab/gpu-cluster-bringup](https://github.com/su0xpj-bastion/inference-qa-lab/tree/main/gpu-cluster-bringup), where it is maintained and tested. This repository is archived and read-only.
+
 Staged acceptance for multi-node GPU clusters, for both NVIDIA and AMD nodes. It takes the raw output of the tools you'd run on a freshly provisioned node (`nvidia-smi -q -x`, `nvidia-smi topo -m`, `dcgmi diag -r 3`, `ibstat`, `fi_info -p efa`, `lspci -vv`, `rocm-smi --json`, `all_reduce_perf`) and returns a machine-readable verdict per node and per cluster. Nodes move through **node → burn-in → NVLink/rack domain → cluster** gates. A node that fails any gate is **cordoned with the stage and the reason**, never dropped silently. The cluster ends as **ACCEPTED / ACCEPTED_DEGRADED / REJECTED**, with exit codes that CI and Ansible can gate on. Provisioning examples cover cloud (Terraform for AWS p5 + cloud-init) and on-prem (Ansible inventory + PXE/BCM notes), and both run the gates as their post-provisioning hook.
 
 ```mermaid
